@@ -1,0 +1,18 @@
+package ast;
+
+import ast.definiciones.Definition;
+
+import java.util.List;
+
+public class Program extends ASTNodeImpl{
+    public List<Definition> definitionList;
+
+    public Program(int line, int column, List<Definition> definitionList) {
+        this(line, column);
+        this.definitionList = definitionList;
+    }
+
+    public Program(int line, int column) {
+        super(line, column);
+    }
+}

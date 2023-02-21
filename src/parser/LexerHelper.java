@@ -1,5 +1,7 @@
 package parser;
 
+import ast.tipos.Char;
+
 public class LexerHelper {
 	
 	public static int lexemeToInt(String str) {
@@ -14,7 +16,18 @@ public class LexerHelper {
 
 	public static char lexemeToChar(String text) {
 		try {
-			return text.charAt(1);
+			if(text.length()==3)
+				return text.charAt(1);
+			else if(text.equals("\'\\n\'"))
+				return '\n';
+			else if(text.equals("\'\\t\'"))
+				return '\t';
+			else {
+				String s = text.substring(2,text.length()-1);
+				int character = Integer.parseInt(s);
+				return (char) character;
+			}
+
 		}
 		catch(NumberFormatException e) {
 			System.out.println(e);

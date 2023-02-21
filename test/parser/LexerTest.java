@@ -32,7 +32,11 @@ public class LexerTest {
 				semanticValue = token.getText();
 			}
 			// We test the token
-			expectedTokens[i].assertEquals(token.getLine(), token.getCharPositionInLine() + 1, token.getText(), token.getType(), semanticValue);
+			expectedTokens[i].assertEquals(token.getLine(),
+					token.getCharPositionInLine() + 1,
+					token.getText(),
+					token.getType(),
+					semanticValue);
 			i++;
 		}
 	}

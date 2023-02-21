@@ -1,32 +1,42 @@
 token literal names:
 null
 null
-'\'\\n\''
-'\'\\t\''
 null
 null
 null
 null
 null
-null
+'+'
+'-'
+'*'
+'/'
+';'
+'('
+')'
+'.'
 null
 
 token symbolic names:
 null
 BLANK
-NEW_LINE
-TABULATOR
 COMMENT
 MULTILINE_COMMENT
 ID
 CHAR_CONSTANT
 REAL_CONSTANT
+SUMA
+RESTA
+MULTIPLICACION
+DIVISION
+ENDOFLINE
+ABREPAR
+CIERRAPAR
+PUNTO
 INT_CONSTANT
-ASCII_CHAR_CONSTANT
 
 rule names:
 program
 
 
 atn:
-[4, 1, 10, 5, 2, 0, 7, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 2, 1, 0, 0, 0, 2, 3, 1, 0, 0, 0, 3, 1, 1, 0, 0, 0, 0]
+[4, 1, 15, 5, 2, 0, 7, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 2, 1, 0, 0, 0, 2, 3, 1, 0, 0, 0, 3, 1, 1, 0, 0, 0, 0]

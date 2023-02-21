@@ -18,7 +18,8 @@ public class PmmParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		BLANK=1, COMMENT=2, MULTILINE_COMMENT=3, ID=4, CHAR_CONSTANT=5, REAL_CONSTANT=6, 
-		INT_CONSTANT=7;
+		SUMA=7, RESTA=8, MULTIPLICACION=9, DIVISION=10, ENDOFLINE=11, ABREPAR=12, 
+		CIERRAPAR=13, PUNTO=14, INT_CONSTANT=15;
 	public static final int
 		RULE_program = 0;
 	private static String[] makeRuleNames() {
@@ -30,13 +31,16 @@ public class PmmParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
+			null, null, null, null, null, null, null, "'+'", "'-'", "'*'", "'/'", 
+			"';'", "'('", "')'", "'.'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "BLANK", "COMMENT", "MULTILINE_COMMENT", "ID", "CHAR_CONSTANT", 
-			"REAL_CONSTANT", "INT_CONSTANT"
+			"REAL_CONSTANT", "SUMA", "RESTA", "MULTIPLICACION", "DIVISION", "ENDOFLINE", 
+			"ABREPAR", "CIERRAPAR", "PUNTO", "INT_CONSTANT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -123,7 +127,7 @@ public class PmmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0007\u0005\u0002\u0000\u0007\u0000\u0001\u0000\u0001\u0000"+
+		"\u0004\u0001\u000f\u0005\u0002\u0000\u0007\u0000\u0001\u0000\u0001\u0000"+
 		"\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0003\u0000\u0002\u0001"+
 		"\u0000\u0000\u0000\u0002\u0003\u0001\u0000\u0000\u0000\u0003\u0001\u0001"+
 		"\u0000\u0000\u0000\u0000";

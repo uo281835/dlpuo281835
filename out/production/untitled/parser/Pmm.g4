@@ -27,9 +27,24 @@ RESTA: '-';
 MULTIPLICACION: '*';
 DIVISION: '/';
 ENDOFLINE: ';';
+ASIGNA: '=';
+IGUAL:'==';
+AND: '&&';
+OR: '||';
+MENOR: '<';
+MENORIGUAL: '<=';
+MAYOR: '>';
+MAYORIGUAL: '>=';
 ABREPAR: '(';
 CIERRAPAR:')';
+NEGADOR: '~';
 PUNTO: '.';
+IF: 'if';
+ELSE: 'else';
+ABRELLAVE: '{';
+CIERRALLAVE:'}';
+ABRECOR: '[';
+CIERRACOR:']';
 fragment
 DOUBLE_CONSTANT_ENTERO_EXPONENCIAL: NUMERO'.'?[Ee]NUMERO;
 fragment

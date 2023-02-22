@@ -1,7 +1,119 @@
 grammar Pmm;
 
 program:
+        listaDef main EOF
        ;
+main:
+    'def' 'main' '(' ')'':'  '{'cuerpoFun'}'
+    ;
+listaDef:
+        |definition listaDef
+        ;
+definition:
+        defVar
+        |defFunc
+
+        ;
+defVar:
+        identificadores ':' type ';'
+        ;
+identificadores:
+            ID
+           |ID ',' identificadores
+           ;
+defFunc:
+        'def' ID '(' defParams? ')'':' (type)?'{' cuerpoFun '}'
+        ;
+defParams:
+    defParam
+    |defParam ','defParams
+;
+defParam:
+    ID ':' type
+;
+cuerpoFun:
+    listaDefVar statements
+;
+listaDefVar:
+        |defVar listaDefVar
+        ;
+statements:
+        |statement  statements
+
+;
+type:
+    'char'
+    |'double'
+    |'int'
+    |ID
+    |'struct' '{' listaDefVar '}'
+    | listaDimensiones type
+    ;
+
+listaDimensiones:
+    '['INT_CONSTANT']'
+    |'['INT_CONSTANT']' listaDimensiones
+;
+statement:
+    'print' listaExpComas';'
+    |'input' listaExpComas';'
+    |expression '=' expression';'
+    |'if' expression '{' cuerpo '}' ('else' cuerpo)?
+    |'while' expression '{' cuerpo '}'
+    |'return' expression';'
+    |ID '(' identificadores?')' ';'
+    ;
+cuerpo:
+    listaDefVar statementsNoOpt
+;
+statementsNoOpt:statement
+        |statement  statements
+;
+listaExpComas:
+    expression
+    |expression ',' listaExpComas
+;
+expression: INT_CONSTANT
+            | CHAR_CONSTANT
+            | REAL_CONSTANT
+            | ID
+            | ID '(' listaExpComas?')'
+            | '(' expression ')'
+            | expression '[' expression ']'
+            | expression '.' ID
+            | '(' type ')' expression
+            | '-' expression
+            | '!' expression
+            | expression ('*'|'/'|'%') expression
+            | expression ('+'|'-') expression
+            | expression ('>'|'>='|'<'|'<='|'!='|'==') expression
+            | expression ('&&'|'||') expression
+            ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fragment
 LETRA: [a-zA-Z];
 fragment
@@ -22,41 +134,7 @@ MULTILINE_COMMENT: '"""'.*?'"""'->skip;
 ID: [a-zA-Z_][a-zA-Z_0-9]*;
 CHAR_CONSTANT: '\''.'\''|NEW_LINE|TABULATOR|ASCII_CHAR_CONSTANT;
 REAL_CONSTANT: DOUBLE_CONSTANT_ENTERO_EXPONENCIAL|DOUBLE_CONSTANT_DOS_INTS|DOUBLE_CONSTANT_ENTERO|DOUBLE_CONSTANT_FRACCION;
-SUMA: '+';
-RESTA: '-';
-MULTIPLICACION: '*';
-DIVISION: '/';
-MODULO: '%';
-ENDOFLINE: ';';
-ASIGNA: '=';
-IGUAL:'==';
-AND: '&&';
-OR: '||';
-MENOR: '<';
-MENORIGUAL: '<=';
-MAYOR: '>';
-MAYORIGUAL: '>=';
-ABREPAR: '(';
-CIERRAPAR:')';
-NEGADOR: '!';
-PUNTO: '.';
-IF: 'if';
-ELSE: 'else';
-ABRELLAVE: '{';
-CIERRALLAVE:'}';
-ABRECOR: '[';
-CIERRACOR:']';
-DEF: 'def';
-PRINT: 'print';
-INPUT: 'input';
-STRUCT: 'struct';
-WHILE: 'while';
-CAST: 'CAST';
-RETURN: 'return';
-INT: 'int';
-DOUBLE: 'double';
-CHAR: 'char';
-DOS_PUNTOS: ':';
+
 fragment
 DOUBLE_CONSTANT_ENTERO_EXPONENCIAL: NUMERO'.'?[Ee]NUMERO;
 fragment
@@ -67,7 +145,7 @@ fragment
 DOUBLE_CONSTANT_FRACCION:
                  INT_CONSTANT?'.'DECIMAL_EXPONENTIAL|
                  '.'NUMERO;
-INT_CONSTANT: '0'|[1-9][0-9]+;
+INT_CONSTANT: '0'|[1-9][0-9]*;
 fragment
 ASCII_CHAR_CONSTANT:'\'\\'NUMERO+'\'';
 

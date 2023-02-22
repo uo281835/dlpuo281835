@@ -1,7 +1,38 @@
 grammar Pmm;
 
 program:
+        (expression) EOF
        ;
+
+expression: INT_CONSTANT
+            | CHAR_CONSTANT
+            | expression '+' expression
+            ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fragment
 LETRA: [a-zA-Z];
 fragment
@@ -28,7 +59,6 @@ MULTIPLICACION: '*';
 DIVISION: '/';
 MODULO: '%';
 ENDOFLINE: ';';
-ASIGNA: '=';
 IGUAL:'==';
 AND: '&&';
 OR: '||';
@@ -40,6 +70,7 @@ ABREPAR: '(';
 CIERRAPAR:')';
 NEGADOR: '!';
 PUNTO: '.';
+ASIGNA: '=';
 IF: 'if';
 ELSE: 'else';
 ABRELLAVE: '{';

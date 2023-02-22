@@ -18,10 +18,12 @@ public class PmmParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		BLANK=1, COMMENT=2, MULTILINE_COMMENT=3, ID=4, CHAR_CONSTANT=5, REAL_CONSTANT=6, 
-		SUMA=7, RESTA=8, MULTIPLICACION=9, DIVISION=10, ENDOFLINE=11, ASIGNA=12, 
-		IGUAL=13, AND=14, OR=15, MENOR=16, MENORIGUAL=17, MAYOR=18, MAYORIGUAL=19, 
-		ABREPAR=20, CIERRAPAR=21, NEGADOR=22, PUNTO=23, IF=24, ELSE=25, ABRELLAVE=26, 
-		CIERRALLAVE=27, ABRECOR=28, CIERRACOR=29, INT_CONSTANT=30;
+		SUMA=7, RESTA=8, MULTIPLICACION=9, DIVISION=10, MODULO=11, ENDOFLINE=12, 
+		ASIGNA=13, IGUAL=14, AND=15, OR=16, MENOR=17, MENORIGUAL=18, MAYOR=19, 
+		MAYORIGUAL=20, ABREPAR=21, CIERRAPAR=22, NEGADOR=23, PUNTO=24, IF=25, 
+		ELSE=26, ABRELLAVE=27, CIERRALLAVE=28, ABRECOR=29, CIERRACOR=30, DEF=31, 
+		PRINT=32, INPUT=33, STRUCT=34, WHILE=35, CAST=36, RETURN=37, INT=38, DOUBLE=39, 
+		CHAR=40, DOS_PUNTOS=41, INT_CONSTANT=42;
 	public static final int
 		RULE_program = 0;
 	private static String[] makeRuleNames() {
@@ -34,18 +36,22 @@ public class PmmParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, "'+'", "'-'", "'*'", "'/'", 
-			"';'", "'='", "'=='", "'&&'", "'||'", "'<'", "'<='", "'>'", "'>='", "'('", 
-			"')'", "'~'", "'.'", "'if'", "'else'", "'{'", "'}'", "'['", "']'"
+			"'%'", "';'", "'='", "'=='", "'&&'", "'||'", "'<'", "'<='", "'>'", "'>='", 
+			"'('", "')'", "'!'", "'.'", "'if'", "'else'", "'{'", "'}'", "'['", "']'", 
+			"'def'", "'print'", "'input'", "'struct'", "'while'", "'CAST'", "'return'", 
+			"'int'", "'double'", "'char'", "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "BLANK", "COMMENT", "MULTILINE_COMMENT", "ID", "CHAR_CONSTANT", 
-			"REAL_CONSTANT", "SUMA", "RESTA", "MULTIPLICACION", "DIVISION", "ENDOFLINE", 
-			"ASIGNA", "IGUAL", "AND", "OR", "MENOR", "MENORIGUAL", "MAYOR", "MAYORIGUAL", 
-			"ABREPAR", "CIERRAPAR", "NEGADOR", "PUNTO", "IF", "ELSE", "ABRELLAVE", 
-			"CIERRALLAVE", "ABRECOR", "CIERRACOR", "INT_CONSTANT"
+			"REAL_CONSTANT", "SUMA", "RESTA", "MULTIPLICACION", "DIVISION", "MODULO", 
+			"ENDOFLINE", "ASIGNA", "IGUAL", "AND", "OR", "MENOR", "MENORIGUAL", "MAYOR", 
+			"MAYORIGUAL", "ABREPAR", "CIERRAPAR", "NEGADOR", "PUNTO", "IF", "ELSE", 
+			"ABRELLAVE", "CIERRALLAVE", "ABRECOR", "CIERRACOR", "DEF", "PRINT", "INPUT", 
+			"STRUCT", "WHILE", "CAST", "RETURN", "INT", "DOUBLE", "CHAR", "DOS_PUNTOS", 
+			"INT_CONSTANT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -132,10 +138,10 @@ public class PmmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001e\u0005\u0002\u0000\u0007\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0003\u0000\u0002\u0001"+
-		"\u0000\u0000\u0000\u0002\u0003\u0001\u0000\u0000\u0000\u0003\u0001\u0001"+
-		"\u0000\u0000\u0000\u0000";
+		"\u0004\u0001*\u0005\u0002\u0000\u0007\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0003\u0000\u0002\u0001\u0000"+
+		"\u0000\u0000\u0002\u0003\u0001\u0000\u0000\u0000\u0003\u0001\u0001\u0000"+
+		"\u0000\u0000\u0000";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

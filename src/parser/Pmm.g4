@@ -1,7 +1,7 @@
 grammar Pmm;
 
 program:
-        listaDef main EOF
+        listaDef main  EOF
        ;
 main:
     'def' 'main' '(' ')'':'  '{'cuerpoFun'}'
@@ -22,7 +22,7 @@ identificadores:
            |ID ',' identificadores
            ;
 defFunc:
-        'def' ID '(' defParams? ')'':' (type)?'{' cuerpoFun '}'
+        'def' ID '(' defParams? ')'':' (sympleType)?'{' cuerpoFun '}'
         ;
 defParams:
     defParam
@@ -42,14 +42,16 @@ statements:
 
 ;
 type:
-    'char'
-    |'double'
-    |'int'
+    sympleType
     |ID
     |'struct' '{' listaDefVar '}'
     | listaDimensiones type
     ;
-
+sympleType:
+ 'char'
+    |'double'
+    |'int'
+;
 listaDimensiones:
     '['INT_CONSTANT']'
     |'['INT_CONSTANT']' listaDimensiones
@@ -58,10 +60,10 @@ statement:
     'print' listaExpComas';'
     |'input' listaExpComas';'
     |expression '=' expression';'
-    |'if' expression '{' cuerpo '}' ('else' cuerpo)?
-    |'while' expression '{' cuerpo '}'
+    |'if' expression ':'(('{' cuerpo '}')|(statement)) ('else'':'(('{' cuerpo'}')|(statement)))?
+    |'while'  expression ':' (('{' cuerpo '}')|(statement))
     |'return' expression';'
-    |ID '(' identificadores?')' ';'
+    |ID '(' listaExpComas?')' ';'
     ;
 cuerpo:
     listaDefVar statementsNoOpt

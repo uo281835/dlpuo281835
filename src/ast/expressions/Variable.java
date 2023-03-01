@@ -7,15 +7,13 @@ import ast.tipos.Type;
 public class Variable extends ASTNodeImpl implements Expression {
 
     public String nombre;
-    public Type tipo;
-    public Variable(String nombre,Type tipo,int line, int column) {
+    public Variable(int line, int column,String nombre) {
         super(line, column);
         this.nombre = nombre;
-        this.tipo = tipo;
     }
 
     @Override
     public Type getType() {
-        return tipo;
+        return null;
     }
 }

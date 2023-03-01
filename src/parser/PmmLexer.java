@@ -1,5 +1,13 @@
 // Generated from java-escape by ANTLR 4.11.1
 package parser;
+
+/*Todo se pone en pmmParser*/
+import ast.definiciones.*;
+import ast.expressions.*;
+import ast.statements.*;
+import ast.tipos.*;
+import ast.*;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

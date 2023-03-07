@@ -1054,7 +1054,7 @@ public class PmmParser extends Parser {
 				((ListaCamposContext)_localctx).structField = structField();
 				setState(182);
 				((ListaCamposContext)_localctx).l = listaCampos();
-				((ListaCamposContext)_localctx).l.ast.add(((ListaCamposContext)_localctx).structField.ast);
+				((ListaCamposContext)_localctx).l.ast.addAll(((ListaCamposContext)_localctx).structField.ast);
 				     ((ListaCamposContext)_localctx).ast = ((ListaCamposContext)_localctx).l.ast;
 				}
 				break;
@@ -1075,12 +1075,15 @@ public class PmmParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructFieldContext extends ParserRuleContext {
-		public StructField ast;
-		public Token ID;
+		public List<StructField> ast = new ArrayList<StructField>();
+		public IdentificadoresContext ids;
+		public Token d;
 		public TypeContext type;
-		public TerminalNode ID() { return getToken(PmmParser.ID, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
+		}
+		public IdentificadoresContext identificadores() {
+			return getRuleContext(IdentificadoresContext.class,0);
 		}
 		public StructFieldContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1100,14 +1103,16 @@ public class PmmParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(187);
-			((StructFieldContext)_localctx).ID = match(ID);
+			((StructFieldContext)_localctx).ids = identificadores();
 			setState(188);
-			match(T__4);
+			((StructFieldContext)_localctx).d = match(T__4);
 			setState(189);
 			((StructFieldContext)_localctx).type = type();
 			setState(190);
 			match(T__7);
-			((StructFieldContext)_localctx).ast =  new StructField(((StructFieldContext)_localctx).ID.getLine(), ((StructFieldContext)_localctx).ID.getCharPositionInLine()+1,(((StructFieldContext)_localctx).ID!=null?((StructFieldContext)_localctx).ID.getText():null), ((StructFieldContext)_localctx).type.ast);
+			for(String id : ((StructFieldContext)_localctx).ids.ast){
+			                _localctx.ast.add(new StructField(((StructFieldContext)_localctx).d.getLine(), ((StructFieldContext)_localctx).d.getCharPositionInLine()+1,id, ((StructFieldContext)_localctx).type.ast));
+			            }
 			}
 		}
 		catch (RecognitionException re) {
@@ -2252,8 +2257,8 @@ public class PmmParser extends Parser {
 		"\u0000\u0000\u00b5\u00b6\u0003\u001e\u000f\u0000\u00b6\u00b7\u0003\u001c"+
 		"\u000e\u0000\u00b7\u00b8\u0006\u000e\uffff\uffff\u0000\u00b8\u00ba\u0001"+
 		"\u0000\u0000\u0000\u00b9\u00b4\u0001\u0000\u0000\u0000\u00b9\u00b5\u0001"+
-		"\u0000\u0000\u0000\u00ba\u001d\u0001\u0000\u0000\u0000\u00bb\u00bc\u0005"+
-		")\u0000\u0000\u00bc\u00bd\u0005\u0005\u0000\u0000\u00bd\u00be\u0003\u001a"+
+		"\u0000\u0000\u0000\u00ba\u001d\u0001\u0000\u0000\u0000\u00bb\u00bc\u0003"+
+		"\f\u0006\u0000\u00bc\u00bd\u0005\u0005\u0000\u0000\u00bd\u00be\u0003\u001a"+
 		"\r\u0000\u00be\u00bf\u0005\b\u0000\u0000\u00bf\u00c0\u0006\u000f\uffff"+
 		"\uffff\u0000\u00c0\u001f\u0001\u0000\u0000\u0000\u00c1\u00c2\u0005\u000b"+
 		"\u0000\u0000\u00c2\u00c8\u0006\u0010\uffff\uffff\u0000\u00c3\u00c4\u0005"+

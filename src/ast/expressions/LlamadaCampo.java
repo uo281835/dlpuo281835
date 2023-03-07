@@ -6,13 +6,13 @@ import ast.tipos.Struct;
 import ast.tipos.Type;
 
 public class LlamadaCampo  extends ASTNodeImpl implements Expression {
-    public Struct struct;
+    public Expression struct;
     public String campo;
     public LlamadaCampo(int line, int column) {
         super(line, column);
     }
 
-    public LlamadaCampo(int line, int column, Struct struct, String campo) {
+    public LlamadaCampo(int line, int column, Expression struct, String campo) {
         this(line, column);
         this.struct = struct;
         this.campo = campo;
@@ -20,6 +20,6 @@ public class LlamadaCampo  extends ASTNodeImpl implements Expression {
 
     @Override
     public Type getType() {
-        return struct;
+        return null;
     }
 }

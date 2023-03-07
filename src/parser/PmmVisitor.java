@@ -31,6 +31,12 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMain(PmmParser.MainContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PmmParser#listaDefOpt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListaDefOpt(PmmParser.ListaDefOptContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PmmParser#listaDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -61,6 +67,12 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDefFunc(PmmParser.DefFuncContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PmmParser#defParamsOpt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefParamsOpt(PmmParser.DefParamsOptContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PmmParser#defParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -72,12 +84,6 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDefParam(PmmParser.DefParamContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PmmParser#cuerpoFun}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCuerpoFun(PmmParser.CuerpoFunContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PmmParser#listaDefVar}.
 	 * @param ctx the parse tree
@@ -97,6 +103,18 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(PmmParser.TypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PmmParser#listaCampos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListaCampos(PmmParser.ListaCamposContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#structField}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructField(PmmParser.StructFieldContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PmmParser#sympleType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -115,11 +133,11 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(PmmParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PmmParser#cuerpo}.
+	 * Visit a parse tree produced by {@link PmmParser#cuerpoIf}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCuerpo(PmmParser.CuerpoContext ctx);
+	T visitCuerpoIf(PmmParser.CuerpoIfContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PmmParser#statementsNoOpt}.
 	 * @param ctx the parse tree
@@ -132,6 +150,12 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitListaExpComas(PmmParser.ListaExpComasContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#listaExpComasNoOpcion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListaExpComasNoOpcion(PmmParser.ListaExpComasNoOpcionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PmmParser#expression}.
 	 * @param ctx the parse tree

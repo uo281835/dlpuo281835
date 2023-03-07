@@ -3,17 +3,22 @@ package ast.expressions;
 import ast.ASTNodeImpl;
 import ast.tipos.Type;
 
-public class Cast extends ExpressionImpl{
+public class Cast extends ASTNodeImpl implements Expression {
     public Type tipo2;
     public Expression expression;
 
-    public Cast(int line, int column, Type tipo, Type tipo2, Expression expression) {
-        this(line, column, tipo);
+    public Cast(int line, int column, Type tipo, Expression expression) {
+        this(line, column);
         this.tipo2 = tipo2;
         this.expression = expression;
     }
 
-    public Cast(int line, int column, Type tipo) {
-        super(line, column, tipo);
+    public Cast(int line, int column) {
+        super(line, column);
+    }
+
+    @Override
+    public Type getType() {
+        return null;
     }
 }

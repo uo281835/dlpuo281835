@@ -1,7 +1,5 @@
 package parser;
 
-import ast.tipos.Char;
-
 public class LexerHelper {
 	
 	public static int lexemeToInt(String str) {

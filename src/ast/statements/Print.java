@@ -3,10 +3,12 @@ package ast.statements;
 import ast.ASTNodeImpl;
 import ast.expressions.Expression;
 
-public class Print extends ASTNodeImpl implements Statement {
-    public Expression expression;
+import java.util.List;
 
-    public Print(int line, int column, Expression expression) {
+public class Print extends ASTNodeImpl implements Statement {
+    public List<Expression> expression;
+
+    public Print(int line, int column, List<Expression> expression) {
         this(line, column);
         this.expression = expression;
     }

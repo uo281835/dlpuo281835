@@ -6,13 +6,13 @@ import ast.tipos.Type;
 
 public class LlamadaArray  extends ASTNodeImpl implements Expression {
 
-    public Array array;
-    public int posicion;
+    public Expression array;
+    public Expression posicion;
     public LlamadaArray(int line, int column) {
         super(line, column);
     }
 
-    public LlamadaArray(int line, int column, Array array, int posicion) {
+    public LlamadaArray(int line, int column, Expression array, Expression posicion) {
         this(line, column);
         this.array = array;
         this.posicion = posicion;
@@ -20,6 +20,6 @@ public class LlamadaArray  extends ASTNodeImpl implements Expression {
 
     @Override
     public Type getType() {
-        return array;
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 package ast.expressions;
 
 import ast.ASTNodeImpl;
-import ast.tipos.Integer;
+import ast.tipos.IntegerType;
 import ast.tipos.Type;
 
 public class LitInteger  extends ASTNodeImpl implements Expression {
@@ -17,6 +17,6 @@ public class LitInteger  extends ASTNodeImpl implements Expression {
 
     @Override
     public Type getType() {
-        return new Integer(line, column);
+        return new IntegerType(line, column);
     }
 }

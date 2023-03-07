@@ -1,7 +1,7 @@
 package ast.expressions;
 
 import ast.ASTNodeImpl;
-import ast.tipos.Double;
+import ast.tipos.DoubleType;
 import ast.tipos.Type;
 
 public class LitReal  extends ASTNodeImpl implements Expression {
@@ -17,6 +17,6 @@ public class LitReal  extends ASTNodeImpl implements Expression {
 
     @Override
     public Type getType() {
-        return new Double(line,column);
+        return new DoubleType(line,column);
     }
 }

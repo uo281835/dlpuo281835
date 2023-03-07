@@ -506,7 +506,7 @@ public class PmmParser extends Parser {
 				match(T__8);
 				setState(98);
 				((IdentificadoresContext)_localctx).id = identificadores();
-				 ((IdentificadoresContext)_localctx).id.ast.add((((IdentificadoresContext)_localctx).ID!=null?((IdentificadoresContext)_localctx).ID.getText():null));
+				 ((IdentificadoresContext)_localctx).id.ast.add((((IdentificadoresContext)_localctx).ID!=null?((IdentificadoresContext)_localctx).ID.getText():null)); ((IdentificadoresContext)_localctx).ast = ((IdentificadoresContext)_localctx).id.ast;
 				}
 				break;
 			}
@@ -590,7 +590,7 @@ public class PmmParser extends Parser {
 				setState(113);
 				match(T__6);
 				((DefFuncContext)_localctx).ast =  new DefFuncion(((DefFuncContext)_localctx).d.getLine(), ((DefFuncContext)_localctx).d.getCharPositionInLine()+1,((DefFuncContext)_localctx).t.ast,((DefFuncContext)_localctx).name.getText(),
-				                 ((DefFuncContext)_localctx).listaDefVar.ast, ((DefFuncContext)_localctx).statements.ast, ((DefFuncContext)_localctx).defParamsOpt.ast);
+				                 ((DefFuncContext)_localctx).defParamsOpt.ast, ((DefFuncContext)_localctx).statements.ast,((DefFuncContext)_localctx).listaDefVar.ast );
 				}
 				break;
 			case 2:
@@ -617,7 +617,7 @@ public class PmmParser extends Parser {
 				setState(125);
 				match(T__6);
 				((DefFuncContext)_localctx).ast =  new DefFuncion(((DefFuncContext)_localctx).d.getLine(), ((DefFuncContext)_localctx).d.getCharPositionInLine()+1, new VoidType(((DefFuncContext)_localctx).d.getLine(), ((DefFuncContext)_localctx).d.getCharPositionInLine()+1),((DefFuncContext)_localctx).name.getText()
-				                        , ((DefFuncContext)_localctx).listaDefVar.ast, ((DefFuncContext)_localctx).statements.ast, ((DefFuncContext)_localctx).defParamsOpt.ast);
+				                       ,((DefFuncContext)_localctx).defParamsOpt.ast  , ((DefFuncContext)_localctx).statements.ast,((DefFuncContext)_localctx).listaDefVar.ast );
 				}
 				break;
 			}

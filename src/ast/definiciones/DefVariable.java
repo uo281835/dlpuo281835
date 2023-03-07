@@ -26,4 +26,13 @@ public class DefVariable extends ASTNodeImpl implements Definition {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return "DefVariable{" +
+                "name='" + name + '\'' +
+                ", tipo=" + tipo +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
 }

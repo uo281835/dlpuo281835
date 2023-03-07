@@ -10,6 +10,17 @@ public class LitCaracter extends ExpressionImpl{
         this(line, column, new CharType(line, column));
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "LitCaracter{" +
+                "value=" + value +
+                ", tipo=" + tipo +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
     public LitCaracter(int line, int column, Type tipo) {
         super(line, column, tipo);
     }

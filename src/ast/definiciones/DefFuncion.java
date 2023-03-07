@@ -33,6 +33,19 @@ public class DefFuncion extends ASTNodeImpl implements  Definition {
     }
 
     @Override
+    public String toString() {
+        return "DefFuncion{" +
+                "tipo=" + tipo +
+                ", nombre='" + nombre + '\'' +
+                ", defParams=" + defParams +
+                ", defVariables=" + defVariables +
+                ", statements=" + statements +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
+    @Override
     public String getName() {
         return nombre;
     }

@@ -13,6 +13,16 @@ public class Cast extends ASTNodeImpl implements Expression {
         this.expression = expression;
     }
 
+    @Override
+    public String toString() {
+        return "Cast{" +
+                "tipo2=" + tipo2 +
+                ", expression=" + expression +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
     public Cast(int line, int column) {
         super(line, column);
     }

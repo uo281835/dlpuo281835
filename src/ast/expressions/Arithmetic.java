@@ -18,6 +18,17 @@ public class Arithmetic extends ASTNodeImpl implements Expression {
         this.operator = operator;
     }
 
+    @Override
+    public String toString() {
+        return "Arithmetic{" +
+                "exp1=" + exp1 +
+                ", exp2=" + exp2 +
+                ", operator='" + operator + '\'' +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
     public String operator;
 
 

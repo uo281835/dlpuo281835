@@ -49,15 +49,15 @@ defVar returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
 
 identificadores returns [List<String> ast = new ArrayList<String>()]:
             ID {$ast.add($ID.text);}
-           |ID ',' id = identificadores{ $id.ast.add($ID.text);}
+           |ID ',' id = identificadores{ $id.ast.add($ID.text); $ast=$id.ast;}
            ;
 defFunc returns [DefFuncion ast]:
         d='def' name=ID '(' defParamsOpt ')'':' (t=sympleType)'{' listaDefVar statements '}'
         {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1,$t.ast,$name.getText(),
-                 $listaDefVar.ast, $statements.ast, $defParamsOpt.ast);}
+                 $defParamsOpt.ast, $statements.ast,$listaDefVar.ast );}
         |d='def' name=ID '(' defParamsOpt ')'':' '{' listaDefVar statements '}'
                  {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1, new VoidType($d.getLine(), $d.getCharPositionInLine()+1),$name.getText()
-                        , $listaDefVar.ast, $statements.ast, $defParamsOpt.ast);}
+                       ,$defParamsOpt.ast  , $statements.ast,$listaDefVar.ast );}
         ;
 defParamsOpt returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
 

@@ -44,7 +44,20 @@ defVar returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
         ids=identificadores d=':' type ';'
         {for(String id : $ids.ast){
             $ast.add(new DefVariable(id, $type.ast,$d.getLine(), $d.getCharPositionInLine()+1 ));
-        }}
+        }
+         for(String id : $ids.ast){
+                       int contador =0;
+                        for(String field : $ids.ast){
+                            if(field.equals(id)){
+                                contador++;
+                                if(contador>1){
+                                    ErrorType error = new ErrorType($d.getLine(), $d.getCharPositionInLine()+1,"Error: La variable "+id+" Ya se ha definido");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+        }
         ;
 
 identificadores returns [List<String> ast = new ArrayList<String>()]:
@@ -97,14 +110,38 @@ type returns [Type ast]:
     ;
 
 listaCampos returns [List<StructField> ast = new ArrayList<StructField>()]:
-     |structField l=listaCampos {$l.ast.addAll($structField.ast);
-     $ast=$l.ast;}
+     |structField l=listaCampos {
+        boolean repetido = false;
+        for(StructField field : $l.ast){
+            for(StructField sf : $structField.ast){
+            if(field.getNombre().equals(sf.getNombre())){
+                repetido = true;
+                ErrorType error = new ErrorType(sf.getLine(), sf.getColumn(), "Error: El campo "+sf.getNombre()+" está repetido");
+                break;
+            }
+            }
+        }
+        if(!repetido){
+     $l.ast.addAll($structField.ast);
+     $ast=$l.ast;}}
 
 ;
 structField returns [List<StructField> ast = new ArrayList<StructField>()]:
     ids=identificadores d=':' type ';'
-            {for(String id : $ids.ast){
-                $ast.add(new StructField($d.getLine(), $d.getCharPositionInLine()+1,id, $type.ast));
+            {
+            for(String id : $ids.ast){
+                boolean contiene = false;
+                for(StructField field : $ast){
+                    if(field.getNombre().equals(id)){
+                        contiene=true;
+                        ErrorType error = new ErrorType($d.getLine(), $d.getCharPositionInLine()+1,"Error: StructField "+id+" Ya se ha definido");
+                        break;
+
+                    }
+                }
+                if(!contiene){
+                    $ast.add(new StructField($d.getLine(), $d.getCharPositionInLine()+1,id, $type.ast));
+                 }
             }}
             ;
 

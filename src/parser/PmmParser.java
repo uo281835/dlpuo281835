@@ -449,6 +449,19 @@ public class PmmParser extends Parser {
 			for(String id : ((DefVarContext)_localctx).ids.ast){
 			            _localctx.ast.add(new DefVariable(id, ((DefVarContext)_localctx).type.ast,((DefVarContext)_localctx).d.getLine(), ((DefVarContext)_localctx).d.getCharPositionInLine()+1 ));
 			        }
+			         for(String id : ((DefVarContext)_localctx).ids.ast){
+			                       int contador =0;
+			                        for(String field : ((DefVarContext)_localctx).ids.ast){
+			                            if(field.equals(id)){
+			                                contador++;
+			                                if(contador>1){
+			                                    ErrorType error = new ErrorType(((DefVarContext)_localctx).d.getLine(), ((DefVarContext)_localctx).d.getCharPositionInLine()+1,"Error: La variable "+id+" Ya se ha definido");
+			                                    break;
+			                                }
+			                            }
+			                        }
+			                    }
+			        
 			}
 		}
 		catch (RecognitionException re) {
@@ -1054,8 +1067,20 @@ public class PmmParser extends Parser {
 				((ListaCamposContext)_localctx).structField = structField();
 				setState(182);
 				((ListaCamposContext)_localctx).l = listaCampos();
-				((ListaCamposContext)_localctx).l.ast.addAll(((ListaCamposContext)_localctx).structField.ast);
-				     ((ListaCamposContext)_localctx).ast = ((ListaCamposContext)_localctx).l.ast;
+
+				        boolean repetido = false;
+				        for(StructField field : ((ListaCamposContext)_localctx).l.ast){
+				            for(StructField sf : ((ListaCamposContext)_localctx).structField.ast){
+				            if(field.getNombre().equals(sf.getNombre())){
+				                repetido = true;
+				                ErrorType error = new ErrorType(sf.getLine(), sf.getColumn(), "Error: El campo "+sf.getNombre()+" está repetido");
+				                break;
+				            }
+				            }
+				        }
+				        if(!repetido){
+				     ((ListaCamposContext)_localctx).l.ast.addAll(((ListaCamposContext)_localctx).structField.ast);
+				     ((ListaCamposContext)_localctx).ast = ((ListaCamposContext)_localctx).l.ast;}
 				}
 				break;
 			default:
@@ -1110,8 +1135,20 @@ public class PmmParser extends Parser {
 			((StructFieldContext)_localctx).type = type();
 			setState(190);
 			match(T__7);
-			for(String id : ((StructFieldContext)_localctx).ids.ast){
-			                _localctx.ast.add(new StructField(((StructFieldContext)_localctx).d.getLine(), ((StructFieldContext)_localctx).d.getCharPositionInLine()+1,id, ((StructFieldContext)_localctx).type.ast));
+
+			            for(String id : ((StructFieldContext)_localctx).ids.ast){
+			                boolean contiene = false;
+			                for(StructField field : _localctx.ast){
+			                    if(field.getNombre().equals(id)){
+			                        contiene=true;
+			                        ErrorType error = new ErrorType(((StructFieldContext)_localctx).d.getLine(), ((StructFieldContext)_localctx).d.getCharPositionInLine()+1,"Error: StructField "+id+" Ya se ha definido");
+			                        break;
+
+			                    }
+			                }
+			                if(!contiene){
+			                    _localctx.ast.add(new StructField(((StructFieldContext)_localctx).d.getLine(), ((StructFieldContext)_localctx).d.getCharPositionInLine()+1,id, ((StructFieldContext)_localctx).type.ast));
+			                 }
 			            }
 			}
 		}

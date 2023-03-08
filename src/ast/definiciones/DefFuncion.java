@@ -2,6 +2,7 @@ package ast.definiciones;
 
 import ast.ASTNodeImpl;
 import ast.statements.Statement;
+import ast.tipos.ErrorType;
 import ast.tipos.Type;
 
 import java.util.ArrayList;
@@ -22,7 +23,38 @@ public class DefFuncion extends ASTNodeImpl implements  Definition {
         this.statements = statements;
         this.defVariables = variables;
         this.defParams=defParams;
+        checkDefinitions();
     }
+
+    private void checkDefinitions() {
+        for(Definition def : defVariables){
+            for(Definition def2 : defVariables){
+                if(!def.equals(def2) && (def.getName().equals(def2.getName())))
+                {
+                    ErrorType error = new ErrorType(def2.getLine(),def2.getColumn(), "Error: Definición duplicada de la variable "+def2.getName());
+                }
+            }
+        }
+        for(Definition def : defVariables){
+            for(Definition def2 : defParams){
+                if(!def.equals(def2) && (def.getName().equals(def2.getName())))
+                {
+                    ErrorType error = new ErrorType(def2.getLine(),def2.getColumn(), "Error: Definición del parámetro "+def2.getName()
+                    +" y la variable "+def.getName()+" tienen el mismo nombre");
+                }
+            }
+        }
+        for(Definition def : defVariables){
+            for(Definition def2 : defVariables){
+                if(!def.equals(def2) && (def.getName().equals(def2.getName())))
+                {
+                    ErrorType error = new ErrorType(def2.getLine(),def2.getColumn(), "Error: Definición duplicada de la variable "+def2.getName());
+                }
+            }
+        }
+
+    }
+
     public DefFuncion(int line, int column) {
         super(line, column);
     }

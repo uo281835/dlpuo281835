@@ -19,6 +19,16 @@ public class LlamadaCampo  extends ASTNodeImpl implements Expression {
     }
 
     @Override
+    public String toString() {
+        return "LlamadaCampo{" +
+                "struct=" + struct +
+                ", campo='" + campo + '\'' +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
+    @Override
     public Type getType() {
         return null;
     }

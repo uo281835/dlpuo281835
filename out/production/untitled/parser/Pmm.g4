@@ -97,13 +97,17 @@ type returns [Type ast]:
     ;
 
 listaCampos returns [List<StructField> ast = new ArrayList<StructField>()]:
-     |structField l=listaCampos {$l.ast.add($structField.ast);
+     |structField l=listaCampos {$l.ast.addAll($structField.ast);
      $ast=$l.ast;}
 
 ;
-structField returns [StructField ast]:
-    ID ':' type ';'{$ast = new StructField($ID.getLine(), $ID.getCharPositionInLine()+1,$ID.text, $type.ast);}
-;
+structField returns [List<StructField> ast = new ArrayList<StructField>()]:
+    ids=identificadores d=':' type ';'
+            {for(String id : $ids.ast){
+                $ast.add(new StructField($d.getLine(), $d.getCharPositionInLine()+1,id, $type.ast));
+            }}
+            ;
+
 sympleType returns [Type ast]:
     t='char'{$ast = new CharType($t.getLine(), $t.getCharPositionInLine()+1);}
     |t='double'{$ast = new DoubleType($t.getLine(), $t.getCharPositionInLine()+1);}
@@ -252,7 +256,7 @@ CHAR_CONSTANT: '\''.'\''|NEW_LINE|TABULATOR|ASCII_CHAR_CONSTANT;
 REAL_CONSTANT: DOUBLE_CONSTANT_ENTERO_EXPONENCIAL|DOUBLE_CONSTANT_DOS_INTS|DOUBLE_CONSTANT_ENTERO|DOUBLE_CONSTANT_FRACCION;
 
 fragment
-DOUBLE_CONSTANT_ENTERO_EXPONENCIAL: NUMERO'.'?[Ee]NUMERO;
+DOUBLE_CONSTANT_ENTERO_EXPONENCIAL: NUMERO'.'?[Ee][+-]?NUMERO;
 fragment
 DOUBLE_CONSTANT_DOS_INTS:  NUMERO'.'NUMERO;
 fragment

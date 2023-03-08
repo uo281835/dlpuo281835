@@ -9,8 +9,8 @@ import java.util.List;
 
 public class DefFuncion extends ASTNodeImpl implements  Definition {
 
-    public Type tipo;
-    public String nombre;
+    private Type tipo;
+    private String nombre;
     public List<DefVariable> defParams = new ArrayList<>();
     public List<DefVariable> defVariables = new ArrayList<DefVariable>();
     public List<Statement> statements = new ArrayList<Statement>();
@@ -43,6 +43,30 @@ public class DefFuncion extends ASTNodeImpl implements  Definition {
                 ", line=" + line +
                 ", column=" + column +
                 '}';
+    }
+
+    public List<DefVariable> getDefParams() {
+        return defParams;
+    }
+
+    public void setDefParams(List<DefVariable> defParams) {
+        this.defParams = defParams;
+    }
+
+    public List<DefVariable> getDefVariables() {
+        return defVariables;
+    }
+
+    public void setDefVariables(List<DefVariable> defVariables) {
+        this.defVariables = defVariables;
+    }
+
+    public List<Statement> getStatements() {
+        return statements;
+    }
+
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
     }
 
     @Override

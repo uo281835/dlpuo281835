@@ -16,6 +16,18 @@ public class DefVariable extends ASTNodeImpl implements Definition {
         this.tipo = tipo;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Type getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Type tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public Type getType() {
         return tipo;

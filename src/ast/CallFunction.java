@@ -8,8 +8,8 @@ import java.util.List;
 public class CallFunction extends ASTNodeImpl implements Statement, Expression
 
 {
-    public List<Expression> expressionList;
-    public String name;
+    private List<Expression> expressionList;
+    private String name;
 
 
     public CallFunction(int line, int column, List<Expression> expressionList, String name) {
@@ -23,7 +23,33 @@ public class CallFunction extends ASTNodeImpl implements Statement, Expression
     }
 
     @Override
+    public String toString() {
+        return "CallFunction{" +
+                "expressionList=" + expressionList +
+                ", name='" + name + '\'' +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
+    @Override
     public Type getType() {
         return null;
+    }
+
+    public List<Expression> getExpressionList() {
+        return expressionList;
+    }
+
+    public void setExpressionList(List<Expression> expressionList) {
+        this.expressionList = expressionList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

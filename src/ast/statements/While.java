@@ -6,7 +6,7 @@ import ast.expressions.Expression;
 import java.util.List;
 
 public class While extends ASTNodeImpl implements Statement{
-    public Expression condition;
+    private Expression condition;
 
     public While(int line, int column, Expression condition, List<Statement> body) {
         super(line, column);
@@ -14,8 +14,36 @@ public class While extends ASTNodeImpl implements Statement{
         this.body = body;
     }
 
-    public List<Statement> body;
+    private List<Statement> body;
+
+    @Override
+    public String toString() {
+        return "While{" +
+                "condition=" + condition +
+                ", body=" + body +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
+    }
+
+
     public While(int line, int column) {
         super(line, column);
+    }
+
+    public Expression getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Expression condition) {
+        this.condition = condition;
+    }
+
+    public List<Statement> getBody() {
+        return body;
+    }
+
+    public void setBody(List<Statement> body) {
+        this.body = body;
     }
 }

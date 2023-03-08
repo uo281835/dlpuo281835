@@ -5,7 +5,15 @@ import ast.tipos.IntegerType;
 import ast.tipos.Type;
 
 public class LitInteger  extends ASTNodeImpl implements Expression {
-    public int value;
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public LitInteger(int line, int column, int value) {
         this(line, column);
@@ -13,6 +21,15 @@ public class LitInteger  extends ASTNodeImpl implements Expression {
     }
     public LitInteger(int line, int column) {
         super(line, column);
+    }
+
+    @Override
+    public String toString() {
+        return "LitInteger{" +
+                "value=" + value +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
     }
 
     @Override

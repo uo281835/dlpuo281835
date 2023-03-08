@@ -5,8 +5,24 @@ import ast.expressions.Expression;
 import ast.expressions.Variable;
 
 public class Asign extends ASTNodeImpl implements Statement{
-    public Expression variable;
-    public Expression value;
+    private Expression variable;
+    private Expression value;
+
+    public Expression getVariable() {
+        return variable;
+    }
+
+    public void setVariable(Expression variable) {
+        this.variable = variable;
+    }
+
+    public Expression getValue() {
+        return value;
+    }
+
+    public void setValue(Expression value) {
+        this.value = value;
+    }
 
     public Asign(int line, int column, Expression variable, Expression value) {
         super(line, column);
@@ -16,5 +32,15 @@ public class Asign extends ASTNodeImpl implements Statement{
 
     public Asign(int line, int column) {
         super(line, column);
+    }
+
+    @Override
+    public String toString() {
+        return "Asign{" +
+                "variable=" + variable +
+                ", value=" + value +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
     }
 }

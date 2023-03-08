@@ -5,7 +5,15 @@ import ast.tipos.DoubleType;
 import ast.tipos.Type;
 
 public class LitReal  extends ASTNodeImpl implements Expression {
-    public double value;
+    private double value;
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 
     public LitReal(int line, int column, double value) {
         this(line, column);
@@ -13,6 +21,15 @@ public class LitReal  extends ASTNodeImpl implements Expression {
     }
     public LitReal(int line, int column) {
         super(line, column);
+    }
+
+    @Override
+    public String toString() {
+        return "LitReal{" +
+                "value=" + value +
+                ", line=" + line +
+                ", column=" + column +
+                '}';
     }
 
     @Override

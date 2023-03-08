@@ -131,12 +131,20 @@ statement returns [Statement ast]:
     List<Statement> listElse = new ArrayList<Statement>();
     listElse.add($elses.ast);
     $ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast , listIf, listElse);}
+    |i='if' e=expression ':'((ifs=statement)) ('else'':'(('{' elseC=cuerpoIf'}')))
+        {List<Statement> listIf = new ArrayList<Statement>();
+        listIf.add($ifs.ast);
+        $ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast , listIf,$elseC.ast);}
     |i='if' e=expression ':'((ifs=statement))
      {List<Statement> listIf = new ArrayList<Statement>();
         listIf.add($ifs.ast);
         $ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast, listIf,new ArrayList<Statement>());}
     |i='if' e=expression ':'(('{' ifC=cuerpoIf '}')) ('else'':'(('{' elseC=cuerpoIf'}')))
      {$ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast , $ifC.ast, $elseC.ast);}
+     |i='if' e=expression ':'(('{' ifC=cuerpoIf '}')) ('else'':'((elses=statement)))
+          {List<Statement> listElse = new ArrayList<Statement>();
+               listElse.add($elses.ast);
+          $ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast , $ifC.ast, listElse);}
     |i='if' e=expression ':'(('{' ifC=cuerpoIf '}'))
     {$ast = new If($i.getLine(), $i.getCharPositionInLine()+1,$e.ast , $ifC.ast, new ArrayList<Statement>());}
     |w='while'  e=expression ':' ((s=statement))

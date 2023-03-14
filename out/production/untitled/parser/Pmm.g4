@@ -48,18 +48,7 @@ defVar returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
         {for(String id : $ids.ast){
             $ast.add(new DefVariable(id, $type.ast,$d.getLine(), $d.getCharPositionInLine()+1 ));
         }
-         for(String id : $ids.ast){
-                       int contador =0;
-                        for(String field : $ids.ast){
-                            if(field.equals(id)){
-                                contador++;
-                                if(contador>1){
-                                    ErrorType error = new ErrorType($d.getLine(), $d.getCharPositionInLine()+1,"Error: La variable "+id+" Ya se ha definido");
-                                    break;
-                                }
-                            }
-                        }
-                    }
+
         }
         ;
 

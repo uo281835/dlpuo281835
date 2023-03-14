@@ -452,18 +452,7 @@ public class PmmParser extends Parser {
 			for(String id : ((DefVarContext)_localctx).ids.ast){
 			            _localctx.ast.add(new DefVariable(id, ((DefVarContext)_localctx).type.ast,((DefVarContext)_localctx).d.getLine(), ((DefVarContext)_localctx).d.getCharPositionInLine()+1 ));
 			        }
-			         for(String id : ((DefVarContext)_localctx).ids.ast){
-			                       int contador =0;
-			                        for(String field : ((DefVarContext)_localctx).ids.ast){
-			                            if(field.equals(id)){
-			                                contador++;
-			                                if(contador>1){
-			                                    ErrorType error = new ErrorType(((DefVarContext)_localctx).d.getLine(), ((DefVarContext)_localctx).d.getCharPositionInLine()+1,"Error: La variable "+id+" Ya se ha definido");
-			                                    break;
-			                                }
-			                            }
-			                        }
-			                    }
+			     
 			        
 			}
 		}

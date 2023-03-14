@@ -24,7 +24,7 @@ public class Struct extends ASTNodeImpl implements Type{
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("FunctionType\n");
+        string.append("Struct\n");
         string.append("\tLínea: '" + line+"\n");
         string.append("\tColumna: '" + column+"\n");
         string.append("\tCampos\n");

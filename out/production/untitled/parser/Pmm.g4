@@ -15,9 +15,10 @@ program returns [Program ast]:
        ;
 main returns [DefFuncion ast]:
     def='def' 'main' '(' ')'':'  '{'listaDefVar statements'}'
-    {$ast = new DefFuncion($def.getLine(), $def.getCharPositionInLine()+1,
-     new VoidType($def.getLine(), $def.getCharPositionInLine()+1),
-            "main",$listaDefVar.ast, $statements.ast, new ArrayList<DefVariable>());}
+    {$ast = new DefFuncion($def.getLine(), $def.getCharPositionInLine()+1,"main",
+     new FunctionType($def.getLine(), $def.getCharPositionInLine()+1, new ArrayList<DefVariable>()
+     , new VoidType($def.getLine(), $def.getCharPositionInLine()+1)),
+            $statements.ast,$listaDefVar.ast );}
     ;
 listaDefOpt returns [List<Definition> ast = new ArrayList<Definition>()]:
         |
@@ -29,7 +30,9 @@ listaDef returns [List<Definition> ast = new ArrayList<Definition>()]:
         {$ast.addAll($definition.ast);}
         |definition l=listaDef
         {
-        $l.ast.addAll($definition.ast);
+        for(Definition def: $definition.ast){
+            $l.ast.add(0,def);
+        }
         $ast = $l.ast;}
         ;
 definition returns[List<Definition> ast = new ArrayList<Definition>()]:
@@ -44,7 +47,20 @@ defVar returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
         ids=identificadores d=':' type ';'
         {for(String id : $ids.ast){
             $ast.add(new DefVariable(id, $type.ast,$d.getLine(), $d.getCharPositionInLine()+1 ));
-        }}
+        }
+         for(String id : $ids.ast){
+                       int contador =0;
+                        for(String field : $ids.ast){
+                            if(field.equals(id)){
+                                contador++;
+                                if(contador>1){
+                                    ErrorType error = new ErrorType($d.getLine(), $d.getCharPositionInLine()+1,"Error: La variable "+id+" Ya se ha definido");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+        }
         ;
 
 identificadores returns [List<String> ast = new ArrayList<String>()]:
@@ -53,11 +69,13 @@ identificadores returns [List<String> ast = new ArrayList<String>()]:
            ;
 defFunc returns [DefFuncion ast]:
         d='def' name=ID '(' defParamsOpt ')'':' (t=sympleType)'{' listaDefVar statements '}'
-        {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1,$t.ast,$name.getText(),
-                 $defParamsOpt.ast, $statements.ast,$listaDefVar.ast );}
+        {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1,$name.getText(),
+                new FunctionType($d.getLine(), $d.getCharPositionInLine()+1,$defParamsOpt.ast, $t.ast)
+                 , $statements.ast,$listaDefVar.ast );}
         |d='def' name=ID '(' defParamsOpt ')'':' '{' listaDefVar statements '}'
-                 {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1, new VoidType($d.getLine(), $d.getCharPositionInLine()+1),$name.getText()
-                       ,$defParamsOpt.ast  , $statements.ast,$listaDefVar.ast );}
+          {$ast = new DefFuncion($d.getLine(), $d.getCharPositionInLine()+1,$name.getText(),
+                        new FunctionType($d.getLine(), $d.getCharPositionInLine()+1,$defParamsOpt.ast, new VoidType($d.getLine(), $d.getCharPositionInLine()+1))
+                         , $statements.ast,$listaDefVar.ast );}
         ;
 defParamsOpt returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
 
@@ -65,9 +83,9 @@ defParamsOpt returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
     {$ast = $defParams.ast;};
 defParams returns [List<DefVariable> ast = new ArrayList<DefVariable>()]:
     defParam
-    {$ast.add($defParam.ast);}
+    {$ast.add(0,$defParam.ast);}
     |defParam ','def = defParams
-    {$def.ast.add($defParam.ast);
+    {$def.ast.add(0,$defParam.ast);
     $ast = $def.ast;}
 ;
 defParam returns [DefVariable ast]:
@@ -76,12 +94,14 @@ defParam returns [DefVariable ast]:
 ;
 listaDefVar returns[List<DefVariable> ast = new ArrayList<DefVariable>()]:
         |defVar lista=listaDefVar
-        {$lista.ast.addAll($defVar.ast);
+        {for(DefVariable def: $defVar.ast){
+            $lista.ast.add(0,def);
+        }
         $ast = $lista.ast;}
         ;
 statements returns[List<Statement> ast = new ArrayList<Statement>()]:
         |statement list= statements
-        {$list.ast.add($statement.ast);
+        {$list.ast.add(0,$statement.ast);
         $ast=$list.ast;}
 
 ;
@@ -90,21 +110,49 @@ type returns [Type ast]:
     //|ID
     |s='struct' '{' listaCampos '}'
     {$ast = new Struct($s.getLine(), $s.getCharPositionInLine()+1, $listaCampos.ast);}
-    | listaDimensiones type
+    |  '['INT_CONSTANT']' type
     {$ast = new Array($type.ast.getLine(),
     $type.ast.getColumn(),
-    $type.ast,$listaDimensiones.ast);}
+    $type.ast,
+    LexerHelper.lexemeToInt($INT_CONSTANT.text));}
     ;
 
 listaCampos returns [List<StructField> ast = new ArrayList<StructField>()]:
-     |structField l=listaCampos {$l.ast.addAll($structField.ast);
-     $ast=$l.ast;}
+     |structField l=listaCampos {
+        boolean repetido = false;
+        for(StructField field : $l.ast){
+            for(StructField sf : $structField.ast){
+            if(field.getNombre().equals(sf.getNombre())){
+                repetido = true;
+                ErrorType error = new ErrorType(sf.getLine(), sf.getColumn(), "Error: El campo "+sf.getNombre()+" está repetido");
+                break;
+            }
+            }
+        }
+        if(!repetido){
+        for(StructField sf : $structField.ast){
+                    $l.ast.add(0, sf);
+        }
+            $ast=$l.ast;
+            }}
 
 ;
 structField returns [List<StructField> ast = new ArrayList<StructField>()]:
     ids=identificadores d=':' type ';'
-            {for(String id : $ids.ast){
-                $ast.add(new StructField($d.getLine(), $d.getCharPositionInLine()+1,id, $type.ast));
+            {
+            for(String id : $ids.ast){
+                boolean contiene = false;
+                for(StructField field : $ast){
+                    if(field.getNombre().equals(id)){
+                        contiene=true;
+                        ErrorType error = new ErrorType($d.getLine(), $d.getCharPositionInLine()+1,"Error: StructField "+id+" Ya se ha definido");
+                        break;
+
+                    }
+                }
+                if(!contiene){
+                    $ast.add(new StructField($d.getLine(), $d.getCharPositionInLine()+1,id, $type.ast));
+                 }
             }}
             ;
 
@@ -156,9 +204,11 @@ statement returns [Statement ast]:
     |ret='return' expression';'
     {$ast = new Return($ret.getLine(), $ret.getCharPositionInLine()+1, $expression.ast);}
     |id=ID '(' exp=listaExpComas')' ';'
-    {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, $exp.ast, $id.getText());}
+    {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, $exp.ast,
+        new Variable($id.getLine(), $id.getCharPositionInLine()+1,$id.getText()));}
     |id=ID '(' ')' ';'
-    {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, new ArrayList<Expression>(), $id.getText());}
+    {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, new ArrayList<Expression>(),
+     new Variable($id.getLine(), $id.getCharPositionInLine()+1,$id.getText()));}
     ;
 
 cuerpoIf returns [List<Statement> ast]:
@@ -169,16 +219,16 @@ statementsNoOpt returns [List<Statement> ast = new ArrayList<Statement>()]:
         statement
         {$ast.add($statement.ast);}
         |statement s= statements
-        {$s.ast.add($statement.ast);
+        {$s.ast.add(0,$statement.ast);
         $ast = $s.ast;}
 
 ;
 
 listaExpComas returns[List<Expression> ast = new ArrayList<Expression>()]:
     expression
-    {$ast.add($expression.ast);}
+    {$ast.add(0,$expression.ast);}
     |expression ',' l=listaExpComas
-    {$l.ast.add($expression.ast);
+    {$l.ast.add(0,$expression.ast);
     $ast = $l.ast;}
 ;
 listaExpComasNoOpcion returns [List<Expression> ast = new ArrayList<Expression>()]:
@@ -196,7 +246,8 @@ expression returns[Expression ast]:
             | ID
             { $ast = new Variable($ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text);}
             | id=ID '(' listaExpComasNoOpcion')'
-             {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, $listaExpComasNoOpcion.ast, $id.getText());}
+             {$ast = new CallFunction($id.getLine(), $id.getCharPositionInLine()+1, $listaExpComasNoOpcion.ast,
+              new Variable($id.getLine(), $id.getCharPositionInLine()+1,$id.getText()));}
             | '(' exp = expression ')' {$ast = $exp.ast;}
             | array = expression '[' acceso = expression ']'
             {$ast = new LlamadaArray($array.ast.getLine(), $array.ast.getColumn(),$array.ast,$acceso.ast);}

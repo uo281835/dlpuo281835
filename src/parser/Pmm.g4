@@ -226,9 +226,9 @@ statementsNoOpt returns [List<Statement> ast = new ArrayList<Statement>()]:
 
 listaExpComas returns[List<Expression> ast = new ArrayList<Expression>()]:
     expression
-    {$ast.add($expression.ast);}
+    {$ast.add(0,$expression.ast);}
     |expression ',' l=listaExpComas
-    {$l.ast.add($expression.ast);
+    {$l.ast.add(0,$expression.ast);
     $ast = $l.ast;}
 ;
 listaExpComasNoOpcion returns [List<Expression> ast = new ArrayList<Expression>()]:

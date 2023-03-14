@@ -1822,7 +1822,7 @@ public class PmmParser extends Parser {
 				{
 				setState(342);
 				((ListaExpComasContext)_localctx).expression = expression(0);
-				_localctx.ast.add(((ListaExpComasContext)_localctx).expression.ast);
+				_localctx.ast.add(0,((ListaExpComasContext)_localctx).expression.ast);
 				}
 				break;
 			case 2:
@@ -1834,7 +1834,7 @@ public class PmmParser extends Parser {
 				match(T__8);
 				setState(347);
 				((ListaExpComasContext)_localctx).l = listaExpComas();
-				((ListaExpComasContext)_localctx).l.ast.add(((ListaExpComasContext)_localctx).expression.ast);
+				((ListaExpComasContext)_localctx).l.ast.add(0,((ListaExpComasContext)_localctx).expression.ast);
 				    ((ListaExpComasContext)_localctx).ast =  ((ListaExpComasContext)_localctx).l.ast;
 				}
 				break;

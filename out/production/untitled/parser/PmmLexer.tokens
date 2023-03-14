@@ -52,11 +52,11 @@ INT_CONSTANT=44
 ';'=8
 ','=9
 'struct'=10
-'char'=11
-'double'=12
-'int'=13
-'['=14
-']'=15
+'['=11
+']'=12
+'char'=13
+'double'=14
+'int'=15
 'print'=16
 'input'=17
 '='=18

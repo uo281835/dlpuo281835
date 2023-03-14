@@ -1,7 +1,10 @@
 package ast;
 
+import ast.definiciones.DefVariable;
 import ast.expressions.Expression;
+import ast.expressions.Variable;
 import ast.statements.Statement;
+import ast.tipos.StructField;
 import ast.tipos.Type;
 import java.util.List;
 
@@ -9,13 +12,13 @@ public class CallFunction extends ASTNodeImpl implements Statement, Expression
 
 {
     private List<Expression> expressionList;
-    private String name;
+    private Variable variable;
 
 
-    public CallFunction(int line, int column, List<Expression> expressionList, String name) {
+    public CallFunction(int line, int column, List<Expression> expressionList, Variable variable) {
         super(line, column);
         this.expressionList = expressionList;
-        this.name = name;
+        this.variable = variable;
     }
 
     public CallFunction(int line, int column) {
@@ -24,12 +27,17 @@ public class CallFunction extends ASTNodeImpl implements Statement, Expression
 
     @Override
     public String toString() {
-        return "CallFunction{" +
-                "expressionList=" + expressionList +
-                ", name='" + name + '\'' +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("CallFunction\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tVariable: '" + variable+"\n");
+        string.append("\tArgumentos: \n");
+        for(Expression def: expressionList){
+            string.append("\t\t"+def+"\n");
+        }
+
+        return string.toString();
     }
 
     @Override
@@ -45,11 +53,11 @@ public class CallFunction extends ASTNodeImpl implements Statement, Expression
         this.expressionList = expressionList;
     }
 
-    public String getName() {
-        return name;
+    public Variable getVariable() {
+        return variable;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVariable(Variable variable) {
+        this.variable = variable;
     }
 }

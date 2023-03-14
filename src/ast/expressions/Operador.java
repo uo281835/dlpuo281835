@@ -40,13 +40,14 @@ public class Operador  extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "Operador{" +
-                "exp1=" + exp1 +
-                ", exp2=" + exp2 +
-                ", operator='" + operator + '\'' +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Operador\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tExpresion1: '" + exp1+"\n");
+        string.append("\tOperador: '" + operator+"\n");
+        string.append("\tExpresion2: '" + exp2+"\n");
+        return string.toString();
     }
 
     public String operator;

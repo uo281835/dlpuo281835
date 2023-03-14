@@ -17,11 +17,13 @@ public class ErrorType extends ASTNodeImpl implements  Type {
 
     @Override
     public String toString() {
-        return
-                 message + '\'' +
-                ", line=" + line +
-                ", column=" + column
-                ;
+        StringBuilder string = new StringBuilder();
+        string.append("ErrorType\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tMensaje: '" + message+"\n");
+
+        return string.toString();
     }
 
     public ErrorType(int line, int column) {

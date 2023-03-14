@@ -3,6 +3,7 @@ package ast.definiciones;
 import ast.ASTNodeImpl;
 import ast.statements.Statement;
 import ast.tipos.ErrorType;
+import ast.tipos.FunctionType;
 import ast.tipos.Type;
 
 import java.util.ArrayList;
@@ -10,19 +11,16 @@ import java.util.List;
 
 public class DefFuncion extends ASTNodeImpl implements  Definition {
 
-    private Type tipo;
+    private FunctionType tipo;
     private String nombre;
-    public List<DefVariable> defParams = new ArrayList<>();
     public List<DefVariable> defVariables = new ArrayList<DefVariable>();
     public List<Statement> statements = new ArrayList<Statement>();
-    public DefFuncion(int line, int column, Type tipo, String nombre
-            ,List<DefVariable> defParams, List<Statement> statements, List<DefVariable> variables){
+    public DefFuncion(int line, int column, String nombre,FunctionType tipo, List<Statement> statements, List<DefVariable> variables){
         this(line,column);
         this.tipo = tipo;
         this.nombre = nombre;
         this.statements = statements;
         this.defVariables = variables;
-        this.defParams=defParams;
         checkDefinitions();
     }
 
@@ -36,7 +34,7 @@ public class DefFuncion extends ASTNodeImpl implements  Definition {
             }
         }
         for(Definition def : defVariables){
-            for(Definition def2 : defParams){
+            for(Definition def2 : tipo.getParams()){
                 if(!def.equals(def2) && (def.getName().equals(def2.getName())))
                 {
                     ErrorType error = new ErrorType(def2.getLine(),def2.getColumn(), "Error: Definición del parámetro "+def2.getName()
@@ -66,24 +64,23 @@ public class DefFuncion extends ASTNodeImpl implements  Definition {
 
     @Override
     public String toString() {
-        return "DefFuncion{" +
-                "tipo=" + tipo +
-                ", nombre='" + nombre + '\'' +
-                ", defParams=" + defParams +
-                ", defVariables=" + defVariables +
-                ", statements=" + statements +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Línea: '" + line+"\n");
+        string.append("Columna: '" + column+"\n");
+        string.append("Nombre: '" + nombre+"\n");
+        string.append("Tipo: '" + tipo+"\n");
+        string.append("Variables:");
+        for(DefVariable def: defVariables){
+            string.append("\t"+def+"\n");
+        }
+        string.append("Statements"+"\n");
+        for(Statement def: statements){
+            string.append("\t"+def+"\n");
+        }
+        return string.toString();
     }
 
-    public List<DefVariable> getDefParams() {
-        return defParams;
-    }
 
-    public void setDefParams(List<DefVariable> defParams) {
-        this.defParams = defParams;
-    }
 
     public List<DefVariable> getDefVariables() {
         return defVariables;

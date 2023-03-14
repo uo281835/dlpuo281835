@@ -1,6 +1,7 @@
 package ast.tipos;
 
 import ast.ASTNodeImpl;
+import ast.definiciones.DefVariable;
 
 import java.util.List;
 
@@ -22,11 +23,16 @@ public class Struct extends ASTNodeImpl implements Type{
 
     @Override
     public String toString() {
-        return "Struct{" +
-                "fields=" + fields +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("FunctionType\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tCampos\n");
+        for(StructField def: fields){
+            string.append("\t\t"+def+"\n");
+        }
+
+        return string.toString();
     }
 
     public Struct(int line, int column) {

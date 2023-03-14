@@ -20,12 +20,13 @@ public class LlamadaCampo  extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "LlamadaCampo{" +
-                "struct=" + struct +
-                ", campo='" + campo + '\'' +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("LlamadaArray\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tStruct: '" + struct+"\n");
+        string.append("\tCampo: '" + campo+"\n");
+        return string.toString();
     }
 
     @Override

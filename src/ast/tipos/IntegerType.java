@@ -9,9 +9,11 @@ public class IntegerType extends ASTNodeImpl implements Type{
 
     @Override
     public String toString() {
-        return "IntegerType{" +
-                "line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("IntegerType\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+
+        return string.toString();
     }
 }

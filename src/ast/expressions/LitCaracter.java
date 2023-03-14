@@ -21,12 +21,12 @@ public class LitCaracter extends ExpressionImpl{
 
     @Override
     public String toString() {
-        return "LitCaracter{" +
-                "value=" + value +
-                ", tipo=" + tipo +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("LitCaracter\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tValor: '" + value+"\n");
+        return string.toString();
     }
 
     public LitCaracter(int line, int column, Type tipo) {

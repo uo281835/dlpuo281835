@@ -1,6 +1,7 @@
 package ast;
 
 import ast.definiciones.Definition;
+import ast.expressions.Expression;
 import ast.tipos.ErrorType;
 
 import java.util.List;
@@ -32,11 +33,16 @@ public class Program extends ASTNodeImpl{
 
     @Override
     public String toString() {
-        return "Program{" +
-                "definitionList=" + definitionList +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Program\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tDefiniciones: \n");
+        for(Definition def: definitionList){
+            string.append("\t\t"+def+"\n");
+        }
+
+        return string.toString();
     }
 
     public List<Definition> getDefinitionList() {

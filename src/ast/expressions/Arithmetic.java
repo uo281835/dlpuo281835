@@ -1,6 +1,8 @@
 package ast.expressions;
 
 import ast.ASTNodeImpl;
+import ast.definiciones.DefVariable;
+import ast.statements.Statement;
 import ast.tipos.Type;
 
 public class Arithmetic extends ASTNodeImpl implements Expression {
@@ -20,13 +22,15 @@ public class Arithmetic extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "Arithmetic{" +
-                "exp1=" + exp1 +
-                ", exp2=" + exp2 +
-                ", operator='" + operator + '\'' +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Arithmetic\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tExpresion1: '" + exp1+"\n");
+        string.append("\tOperador: '" + operator+"\n");
+        string.append("\tExpresion2: '" + exp2+"\n");
+        return string.toString();
+
     }
 
     public String operator;

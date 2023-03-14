@@ -15,11 +15,15 @@ public class Print extends ASTNodeImpl implements Statement {
 
     @Override
     public String toString() {
-        return "Print{" +
-                "expression=" + expression +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Print\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tExpresiones a imprimir: '\n");
+        for(Expression s: expression) {
+            string.append("\t\t" + s + "\n");
+        }
+        return string.toString();
     }
 
     public Print(int line, int column) {

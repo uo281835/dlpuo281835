@@ -1,6 +1,7 @@
 package ast.tipos;
 
 import ast.ASTNodeImpl;
+import ast.definiciones.DefVariable;
 
 public class StructField extends ASTNodeImpl implements Type{
     private String nombre;
@@ -13,12 +14,14 @@ public class StructField extends ASTNodeImpl implements Type{
 
     @Override
     public String toString() {
-        return "StructField{" +
-                "nombre='" + nombre + '\'' +
-                ", tipo=" + tipo +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("StructField\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tNombre: '" + nombre+"\n");
+        string.append("\tTipo: '" + tipo+"\n");
+
+        return string.toString();
     }
 
     public StructField(int line, int column) {

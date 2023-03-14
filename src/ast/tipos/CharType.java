@@ -9,9 +9,11 @@ public class CharType extends ASTNodeImpl implements Type{
 
     @Override
     public String toString() {
-        return "CharType{" +
-                "line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("CharType\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+
+        return string.toString();
     }
 }

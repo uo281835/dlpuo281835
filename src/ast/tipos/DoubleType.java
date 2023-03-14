@@ -9,9 +9,11 @@ public class DoubleType extends ASTNodeImpl implements Type{
 
     @Override
     public String toString() {
-        return "DoubleType{" +
-                "line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("DoubleType\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+
+        return string.toString();
     }
 }

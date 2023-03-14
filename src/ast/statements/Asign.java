@@ -27,7 +27,7 @@ public class Asign extends ASTNodeImpl implements Statement{
     public Asign(int line, int column, Expression variable, Expression value) {
         super(line, column);
         this.variable = variable;
-        this.variable=value;
+        this.value=value;
     }
 
     public Asign(int line, int column) {
@@ -36,11 +36,12 @@ public class Asign extends ASTNodeImpl implements Statement{
 
     @Override
     public String toString() {
-        return "Asign{" +
-                "variable=" + variable +
-                ", value=" + value +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Asign\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tVariable: '" + variable+"\n");
+        string.append("\tValor: '" + value+"\n");
+        return string.toString();
     }
 }

@@ -2,6 +2,7 @@ package ast.definiciones;
 
 import ast.ASTNodeImpl;
 import ast.expressions.Variable;
+import ast.statements.Statement;
 import ast.tipos.Type;
 
 public class DefVariable extends ASTNodeImpl implements Definition {
@@ -40,11 +41,11 @@ public class DefVariable extends ASTNodeImpl implements Definition {
 
     @Override
     public String toString() {
-        return "DefVariable{" +
-                "name='" + name + '\'' +
-                ", tipo=" + tipo +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Línea: '" + line+"\n");
+        string.append("Columna: '" + column+"\n");
+        string.append("Nombre: '" + name+"\n");
+        string.append("Tipo: '" + tipo+"\n");
+        return string.toString();
     }
 }

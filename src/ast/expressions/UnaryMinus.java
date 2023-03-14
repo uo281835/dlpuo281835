@@ -26,11 +26,12 @@ public class UnaryMinus extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "UnaryMinus{" +
-                "expression=" + expression +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("UnaryMinus \n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tExpresión: '" + expression+"\n");
+        return string.toString();
     }
 
     @Override

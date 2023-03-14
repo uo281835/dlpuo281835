@@ -15,11 +15,15 @@ public class Read extends ASTNodeImpl implements Statement {
 
     @Override
     public String toString() {
-        return "Read{" +
-                "expressions=" + expressions +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Read\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tExpresiones a leer: '\n");
+        for(Expression s: expressions) {
+            string.append("\t\t" + s + "\n");
+        }
+        return string.toString();
     }
 
     public Read(int line, int column) {

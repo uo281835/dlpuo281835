@@ -25,11 +25,12 @@ public class LitInteger  extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "LitInteger{" +
-                "value=" + value +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("LitInteger\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tValor: '" + value+"\n");
+        return string.toString();
     }
 
     @Override

@@ -45,13 +45,23 @@ public class If extends ASTNodeImpl implements Statement {
 
     @Override
     public String toString() {
-        return "If{" +
-                "condition=" + condition +
-                ", body=" + body +
-                ", elses=" + elses +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("If\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tCondición: '" + condition+"\n");
+        string.append("\tCuerpo: '\n");
+        for(Statement s: body){
+            string.append("\t\t" + s+"\n");
+        }
+        if(elses.size()>0){
+            string.append("\tCuerpo Else: '\n");
+            for(Statement s: elses){
+                string.append("\t\t" + s+"\n");
+            }
+        }
+
+        return string.toString();
     }
 
     public If(int line, int column) {

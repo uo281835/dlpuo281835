@@ -18,12 +18,18 @@ public class While extends ASTNodeImpl implements Statement{
 
     @Override
     public String toString() {
-        return "While{" +
-                "condition=" + condition +
-                ", body=" + body +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("While\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tCondición: '" + condition+"\n");
+        string.append("\tCuerpo: '\n");
+        for(Statement s: body){
+            string.append("\t\t" + s+"\n");
+        }
+
+
+        return string.toString();
     }
 
 

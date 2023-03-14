@@ -9,7 +9,7 @@ public class Cast extends ASTNodeImpl implements Expression {
 
     public Cast(int line, int column, Type tipo, Expression expression) {
         this(line, column);
-        this.tipo2 = tipo2;
+        this.tipo2 = tipo;
         this.expression = expression;
     }
 
@@ -31,12 +31,13 @@ public class Cast extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "Cast{" +
-                "tipo2=" + tipo2 +
-                ", expression=" + expression +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Cast \n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tTipo al que convertir: '" + tipo2+"\n");
+        string.append("\tExpresión: '" + expression+"\n");
+        return string.toString();
     }
 
     public Cast(int line, int column) {

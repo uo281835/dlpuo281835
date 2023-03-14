@@ -23,11 +23,12 @@ public class Variable extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "Variable{" +
-                "nombre='" + nombre + '\'' +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("Variable \n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tNombre: '" + nombre+"\n");
+        return string.toString();
     }
 
     @Override

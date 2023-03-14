@@ -37,12 +37,13 @@ public class LlamadaArray  extends ASTNodeImpl implements Expression {
 
     @Override
     public String toString() {
-        return "LlamadaArray{" +
-                "array=" + array +
-                ", posicion=" + posicion +
-                ", line=" + line +
-                ", column=" + column +
-                '}';
+        StringBuilder string = new StringBuilder();
+        string.append("LlamadaArray\n");
+        string.append("\tLínea: '" + line+"\n");
+        string.append("\tColumna: '" + column+"\n");
+        string.append("\tArray: '" + array+"\n");
+        string.append("\tPosición: '" + posicion+"\n");
+        return string.toString();
     }
 
     @Override
